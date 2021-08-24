@@ -39,6 +39,11 @@ slots:
   is_valid_email:
     type: bool
     influence_conversation: true
+  email_contents:
+    type: text
+    influence_conversation: false
+    
+    
 responses:
   utter_ask_cuisine:
   - buttons:
@@ -58,13 +63,13 @@ responses:
   utter_ask_budget:
   - buttons:
     - payload: less300 
-      title: less300 
+      title: Lesser than Rs. 300 
     - payload: from300to700
-      title: from300to700
+      title: Rs. 300 to Rs. 700
     - payload: more700
-      title: more700
+      title: More than Rs. 700
     - payload: anyrange
-      title: anyrange
+      title: All price ranges
     text: What is the price range that you are looking at?
     
   utter_ask_send_email:

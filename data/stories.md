@@ -15,6 +15,7 @@
     - slot{"is_valid_city": true}
     - action_search_restaurants
     - slot{"results_found": true}
+    - slot{"email_contents": "email contents"}
     - utter_ask_send_email
 * send_email{"should_send_email": "yes"}
     - slot{"should_send_email": "yes"}
@@ -25,5 +26,5 @@
     - slot{"is_valid_email": true}
     - action_send_email
     - utter_goodbye
-    - action_chat_restart
     - utter_restart
+    - action_chat_restart

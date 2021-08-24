@@ -6,6 +6,7 @@ from rasa_sdk import Action
 from rasa_sdk.events import SlotSet, Restarted
 import pandas as pd
 import json
+import re
 
 ZomatoData = pd.read_csv('zomato.csv')
 ZomatoData = ZomatoData.drop_duplicates().reset_index(drop=True)
@@ -82,11 +83,9 @@ class ActionSearchRestaurants(Action):
 		else:
 			# Sort restaurants based on their ratings
 			results_found = True
-			rest_count = 1
-			# print(f"4DEBUG - results:{results}")
 			results.sort_values(by=['Aggregate rating'], axis=0, ascending=False, inplace=True)
-			#for restaurant in RestaurantSearch(loc,cuisine).iloc[:5].iterrows():
 
+			rest_count = 1
 			response = response + \
 					   f"Top rated {cuisine} restaurants in {loc} \n\n"
 			for index, restaurant in results.head(5).iterrows():
@@ -98,21 +97,33 @@ class ActionSearchRestaurants(Action):
 						   f" Address: {restaurant['Address']} \n\n"
 
 				rest_count += 1
+
+			### EMAIL CONTENTS
+			rest_count = 1
+			email_contents = ""
+			for index, restaurant in results.head(10).iterrows():
+				email_contents = email_contents + \
+						   f"{rest_count}. '{restaurant['Restaurant Name']}' " \
+						   f"rated {restaurant['Aggregate rating']} with avg cost {restaurant['Average Cost for two']}. " \
+						   f" Address: {restaurant['Address']} \n\n"
+				rest_count += 1
+
 		print(f"4DEBUG:{response}")
 		dispatcher.utter_message(response)
-		return [SlotSet('results_found',results_found)]
+		return [SlotSet('results_found',results_found),SlotSet('email_contents',email_contents)]
 
 
-def sendmail(receiver_mail_id, location):
+def sendmail(receiver_mail_id, location, email_contents):
 	import smtplib
 	from email.mime.multipart import MIMEMultipart
 	from email.mime.text import MIMEText
-	mail_content = "Hello,\n" \
-				   "This is a simple mail. There is only text, no attachments are there The mail is sent using Python SMTP library.\n" \
-				   "Thank You"
+	# mail_content = "Hello,\n" \
+	# 			   "This is a simple mail. There is only text, no attachments are there The mail is sent using Python SMTP library.\n" \
+	# 			   "Thank You"
 
+	mail_content = email_contents
 
-	# The mail addresses and password
+	# The mail address and password
 
 
 	sender_address = 'foodie.restaurant.chatbot@gmail.com'
@@ -143,14 +154,20 @@ class ActionSendMail(Action):
 		receiver_email_id = tracker.get_slot('email_id')
 
 		location = tracker.get_slot('location')
+		email_contents = tracker.get_slot('email_contents')
 
 		print(f"4DEBUG: Before sending mail. To: {receiver_email_id}, city:{location}")
 
-		sendmail(receiver_email_id,location)
+		sendmail(receiver_email_id,location, email_contents)
+
+		response = f'Mail sent successfully to {receiver_email_id}'
+		dispatcher.utter_message(response)
+
 		return [SlotSet('email_id',receiver_email_id)]
 
 def check_mail(email_id):
-	return True
+	email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+	return True if(re.search(email_regex,email_id)) else False
 
 class ActionCheckMail(Action):
 	def name(self):
