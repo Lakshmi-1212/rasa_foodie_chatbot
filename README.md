@@ -14,5 +14,5 @@ $rasa train
 **Start bot**
 $rasa shell
 
-**Add training data**
+**Add training data**  s
 $rasa interactive

@@ -31,33 +31,49 @@ WeOperate = ['Agra', 'Ahmedabad', 'Allahabad', 'Amritsar', 'Aurangabad',
        'Pune', 'Ranchi', 'Secunderabad', 'Shimla', 'Surat', 'Vadodara',
        'Varanasi', 'Vizag']
 
-def get_average_cost_range(AvgCostFor2):
+WeOperate_lower = [city.lower() for city in WeOperate]
+
+def get_average_cost_range(avgCostFor2):
 	min_cost = 0
 	max_cost = 999999 #arbitrary max value
-	if AvgCostFor2 is not None:
-		if (AvgCostFor2 == "less300"):
+	if avgCostFor2 is not None:
+		if (avgCostFor2 == "less300"):
 			max_cost = 300
-		elif (AvgCostFor2 == "from300to700"):
+		elif (avgCostFor2 == "from300to700"):
 			min_cost = 300
 			max_cost = 700
-		elif (AvgCostFor2 == "more700"):
+		elif (avgCostFor2 == "more700"):
 			min_cost = 700
 
-	print(f'4DEBUG - get_average_cost_range {min_cost},{max_cost}')
+	print(f'4DEBUG - Min & max for average cost: {min_cost},{max_cost}')
 	return min_cost,max_cost
 
 def check_city_validity(city):
-	return True if city in WeOperate else False
+	return True if city.lower() in WeOperate_lower else False
 
 
+class ActionCheckLocation(Action):
+	def name(self):
+		return 'action_check_loc'
 
-def RestaurantSearch(City,Cuisine,AvgCostFor2):
-	min_cost, max_cost = get_average_cost_range(AvgCostFor2)
+	def run(self, dispatcher, tracker, domain):
+		city = tracker.get_slot('location')
+
+		city_validity = check_city_validity(city)
+		print(f'4DEBUG: city validity: City {city} - {city_validity}')
+
+		# if not city_validity:
+		# 	response = f"Sorry!! We do not support this region currently!!"
+		# 	dispatcher.utter_message(response)
+		return [SlotSet('is_valid_city',city_validity)]
+
+def RestaurantSearch(city,cuisine,avgCostFor2):
+	min_cost, max_cost = get_average_cost_range(avgCostFor2)
 
 
-	TEMP = ZomatoData[(ZomatoData['Cuisines'].apply(lambda x: Cuisine.lower() in x.lower()))
+	TEMP = ZomatoData[(ZomatoData['Cuisines'].apply(lambda x: cuisine.lower() in x.lower()))
 					  &
-					  (ZomatoData['City'].apply(lambda x: City.lower() in x.lower()))
+					  (ZomatoData['City'].apply(lambda x: city.lower() in x.lower()))
 					  &
 					  (ZomatoData['Average Cost for two'] > min_cost)
 					  &
@@ -75,7 +91,7 @@ class ActionSearchRestaurants(Action):
 		cuisine = tracker.get_slot('cuisine')
 		avgcost = tracker.get_slot('avgcost')
 		print(f"4DEBUG - City: {loc},Cuisine: {cuisine}, Cost for two:{avgcost}")
-		results = RestaurantSearch(City=loc,Cuisine=cuisine,AvgCostFor2=avgcost)
+		results = RestaurantSearch(city=loc,cuisine=cuisine,avgCostFor2=avgcost)
 		response=""
 		results_found = False
 		if results.shape[0] == 0:
@@ -85,20 +101,19 @@ class ActionSearchRestaurants(Action):
 			results_found = True
 			results.sort_values(by=['Aggregate rating'], axis=0, ascending=False, inplace=True)
 
+			# Output response - top 5 rated restaurants
 			rest_count = 1
 			response = response + \
 					   f"Top rated {cuisine} restaurants in {loc} \n\n"
 			for index, restaurant in results.head(5).iterrows():
-				# for restaurant in results.iloc[:5].iterrows():
-				# restaurant = restaurant[1]
 				response = response + \
 						   f"{rest_count}. '{restaurant['Restaurant Name']}' " \
-						   f"rated {restaurant['Aggregate rating']} with avg cost {restaurant['Average Cost for two']}. " \
+						   f"rated {restaurant['Aggregate rating']} with an average cost for two: {restaurant['Average Cost for two']}. " \
 						   f" Address: {restaurant['Address']} \n\n"
 
 				rest_count += 1
 
-			### EMAIL CONTENTS
+			### EMAIL CONTENTS - top 10 rated restaurants
 			rest_count = 1
 			email_contents = ""
 			for index, restaurant in results.head(10).iterrows():
@@ -117,28 +132,35 @@ def sendmail(receiver_mail_id, location, email_contents):
 	import smtplib
 	from email.mime.multipart import MIMEMultipart
 	from email.mime.text import MIMEText
-	# mail_content = "Hello,\n" \
-	# 			   "This is a simple mail. There is only text, no attachments are there The mail is sent using Python SMTP library.\n" \
-	# 			   "Thank You"
-
 	mail_content = email_contents
 
+	print(f'4DEBUG: 1. Start - Sending email, size:{len(mail_content)}')
 	# The mail address and password
-
-
 	sender_address = 'foodie.restaurant.chatbot@gmail.com'
 	sender_pass = 'foodiechatbot'
 	receiver_address = receiver_mail_id
+	print(f'4DEBUG: 2. message - Sending email, from:{sender_address}, to:{receiver_address}')
 	# Setup the MIME
 	message = MIMEMultipart()
 	message['From'] = sender_address
 	message['To'] = receiver_address
-	message['Subject'] = f'Foodie Chatbot TESTING: Top rated restaurants in {location}'  # The subject line
+	message['Subject'] = f'Foodie Chatbot: Top rated restaurants in {location}'  # The subject line
 	# The body and the attachments for the mail
 	message.attach(MIMEText(mail_content, 'plain'))
+
+	print(f'4DEBUG: 3. SMTP - Sending email, sender_address:{sender_address}')
 	# Create SMTP session for sending the mail
-	session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
+	#session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
+
+	session = smtplib.SMTP()
+
+	print(f'4DEBUG: 3.5. SMTP connect - Sending email, sender_address:{sender_address}')
+	session.connect('smtp.gmail.com', 587)
+
+	print(f'4DEBUG: 4. starttls - Sending email, sender_address:{sender_address}')
 	session.starttls()  # enable security
+
+	print(f'4DEBUG: 5. Login - Sending email, sender_address:{sender_address}')
 	session.login(sender_address, sender_pass)  # login with mail_id and password
 	text = message.as_string()
 	print(f'4DEBUG: Sending email, from:{sender_address}, to:{receiver_address}')
@@ -181,28 +203,6 @@ class ActionCheckMail(Action):
 
 		return [SlotSet('is_valid_email',valid_email)]
 
-class ActionCheckLocation(Action):
-	def name(self):
-		return 'action_check_loc'
-
-	def run(self, dispatcher, tracker, domain):
-		city = tracker.get_slot('location')
-
-		## DEBUG - BEGIN
-
-		#loc = tracker.get_slot('location')
-		cuisine = tracker.get_slot('cuisine')
-		avgcost = tracker.get_slot('avgcost')
-		print(f"4DEBUG checklocation - City: '{city}',Cuisine: {cuisine}, Cost for two:{avgcost}")
-		## DEBUG - END
-
-		city_validity = check_city_validity(city)
-		print(f'4DEBUG: city validity: City {city} - {city_validity}')
-
-		if not city_validity:
-			response = f"Sorry!! We do not support this region currently!!"
-			dispatcher.utter_message(response)
-		return [SlotSet('is_valid_city',city_validity)]
 
 class ActionRestarted(Action):
 	def name(self):

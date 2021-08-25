@@ -66,14 +66,15 @@
 - in [delhi](location)
 - I am looking for some restaurants in [Mumbai](location)
 - I am looking for [mexican indian fusion](cuisine)
-- can you book a table in [rome](location) in a moderate price range with [American](cuisine) food for four people
+- can you book a table in [rome](location) in a [moderate price](avgcost:from300to700) range with [American](cuisine) food for four people
 - [central](location) [indian](cuisine) restaurant
 - please help me to find restaurants in [pune](location)
-- Please find me a restaurantin [bangalore](location)
+- Please find me a restaurant in [bangalore](location)
+- Please find me a [low price](avgcost:less300) range restaurant in [bangalore](location)
 - [mumbai](location)
 - [Chinese](cuisine:chinese)
 - show me restaurants
-- [mumbai](location)
+- [bangalore](location)
 - [Italian](cuisine)
 - please find me [chinese](cuisine) restaurant in [delhi](location)
 - can you find me a [chinese](cuisine) restaurant
@@ -84,6 +85,7 @@
 - Average cost above [Rs. 700](avgcost)
 - Cost for two between [Rs. 300 to Rs. 700](avgcost)
 - Cost is below [Rs. 300](avgcost)
+- Price range is below [Rs. 300](avgcost)
 - [less300](avgcost)
 - [from300to700](avgcost)
 - [more700](avgcost)
@@ -98,9 +100,7 @@
 - [test@gmail.com](email_id)
 - email [test@gmail.com](email_id)
 - mail [test@gmail.com](email_id)
-
-## synonym:4
-- four
+ 
 
 ## synonym:New Delhi
 - Delhi
@@ -108,6 +108,53 @@
 ## synonym:bangalore
 - Bengaluru
 - Blore
+
+## synonym:Mysore
+- Mysuru
+
+## synonym:Chennai
+- Madras
+
+
+## synonym:Kochi
+- Cochin
+
+
+## synonym:Kolkata
+- Culcatta
+
+## synonym:Puducherry
+- Pondicherry
+
+
+## synonym:Kanpur
+- Cawnpore
+
+## synonym:Guwahati 
+- Gauhati  
+
+## synonym:Indore
+- Indhur
+
+## synonym:Pune
+- Poona
+
+## synonym:Shimla
+- Simla
+
+## synonym:Varanasi
+- Benares
+
+## synonym:Vizag
+- Visakhapatnam
+- Waltair
+
+## synonym:Mangaluru
+- Mangalore
+
+
+## synonym:Varanasi
+- Benares
 
 ## synonym:chinese
 - chines
