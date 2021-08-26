@@ -90,9 +90,12 @@ class ActionSearchRestaurants(Action):
 		loc = tracker.get_slot('location')
 		cuisine = tracker.get_slot('cuisine')
 		avgcost = tracker.get_slot('avgcost')
-		print(f"4DEBUG - City: {loc},Cuisine: {cuisine}, Cost for two:{avgcost}")
+		print(f"4DEBUG - Search Restaurants: City: {loc},Cuisine: {cuisine}, Cost for two:{avgcost}")
+		print(f"4DEBUG - is valid city:{loc} - {tracker.get_slot('is_valid_city')}")
+
 		results = RestaurantSearch(city=loc,cuisine=cuisine,avgCostFor2=avgcost)
 		response=""
+		email_contents = ""
 		results_found = False
 		if results.shape[0] == 0:
 			response= f"No results found for City: {loc},Cuisine: {cuisine}, Cost for two:{avgcost}"
@@ -115,7 +118,6 @@ class ActionSearchRestaurants(Action):
 
 			### EMAIL CONTENTS - top 10 rated restaurants
 			rest_count = 1
-			email_contents = ""
 			for index, restaurant in results.head(10).iterrows():
 				email_contents = email_contents + \
 						   f"{rest_count}. '{restaurant['Restaurant Name']}' " \
