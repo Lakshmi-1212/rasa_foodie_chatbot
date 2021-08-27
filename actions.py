@@ -152,12 +152,12 @@ def sendmail(receiver_mail_id, location, email_contents):
 
 	print(f'4DEBUG: 3. SMTP - Sending email, sender_address:{sender_address}')
 	# Create SMTP session for sending the mail
-	#session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
+	session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
 
-	session = smtplib.SMTP()
-
-	print(f'4DEBUG: 3.5. SMTP connect - Sending email, sender_address:{sender_address}')
-	session.connect('smtp.gmail.com', 587)
+	# session = smtplib.SMTP()
+    #
+	# print(f'4DEBUG: 3.5. SMTP connect - Sending email, sender_address:{sender_address}')
+	# session.connect('smtp.gmail.com', 587)
 
 	print(f'4DEBUG: 4. starttls - Sending email, sender_address:{sender_address}')
 	session.starttls()  # enable security

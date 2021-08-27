@@ -49,14 +49,14 @@
 - Food places to eat
 - I am looking for some restaurants in [Delhi](location).
 - I am looking for some restaurants in [Bangalore](location)
+- I’m hungry. Looking out for some good restaurants
 - show me [chinese](cuisine) restaurants
 - show me [chines](cuisine:chinese) restaurants in the [New Delhi](location:Delhi)
-- show me a [mexican](cuisine) place in the [centre](location)
+- show me a [mexican](cuisine) place in [chennai](location)
 - i am looking for an [indian](cuisine) spot called olaolaolaolaolaola
 - search for restaurants
-- anywhere in the [west](location)
-- I am looking for [asian fusion](cuisine) food
-- I am looking a restaurant in [294328](location)
+- anywhere in the [bangalore](location)
+- I am looking for [south indian](cuisine) food
 - in [Gurgaon](location)
 - [South Indian](cuisine)
 - [North Indian](cuisine)
@@ -69,8 +69,9 @@
 - Oh, sorry, in [Italy](location)
 - in [delhi](location)
 - I am looking for some restaurants in [Mumbai](location)
-- I am looking for [mexican indian fusion](cuisine)
-- can you book a table in [rome](location) in a [moderate price](avgcost:from300to700) range with [American](cuisine) food for four people
+- I am looking for [Mexican](cuisine)
+- can you book a table in [chennai](location) in a [moderate price](avgcost:from300to700) range with [American](cuisine) food for four people
+- Find restaurants in [chennai](location) in a [low price](avgcost:less300) range with [North Indian](cuisine) food  
 - [central](location) [indian](cuisine) restaurant
 - please help me to find restaurants in [pune](location)
 - Please find me a restaurant in [bangalore](location)
@@ -94,6 +95,13 @@
 - [from300to700](avgcost)
 - [more700](avgcost)
 - [anyrange](avgcost)
+- Can you suggest some good restaurants in [kolkata](location)
+- I’m hungry. Looking out for some good restaurants
+- I’m hungry. Looking out for some good [chinese](cuisine) restaurants in [chandigarh](location)
+- Search for [North Indian](cuisine) restaurants in [delhi](location)
+- Search for restaurants in [Bangalore](location) with price range [less than 300](less300)
+- Want to know about restaurants in [Bangalore](location) with cost for two between [more than Rs.700](avgcost)
+- Restaurants in [Delhi](location) at [any price](avgcost) range
 
 ## intent:send_email
 - [yes](should_send_email)

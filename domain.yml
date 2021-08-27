@@ -87,8 +87,12 @@ responses:
   
   utter_we_dont_operate:
   - text: Sorry, we do not operate in that area yet!
+  - text: Sorry, didn’t find any such location. 
   utter_enter_loc_again:
   - text: Please enter the city again
+  
+  utter_results_not_found:
+  - text: Sorry, no results found for restaurants in {location} with {cuisine} cuisine and average cost: {avgcost} 
   
   
   utter_enter_email:
@@ -105,6 +109,8 @@ responses:
   - text: Bye-bye
   - text: See you
   - text: Bon Appetit!
+  - text: Okay. Bon Appetit!
+  - text: Thanks & bye
   utter_greet:
   - text: hey there! How may i help you?
   - text: Hi, how can I help you?
@@ -125,6 +131,7 @@ actions:
 - utter_ask_location
 - utter_we_dont_operate
 - utter_enter_loc_again
+- utter_results_not_found
 
 - utter_ask_send_email
 - utter_enter_email
