@@ -1,29 +1,4 @@
-## intent:affirm
-- yes
-- yep
-- yeah
-- indeed
-- that's right
-- ok
-- great
-- right, thank you
-- correct
-- great choice
-- sounds really good
-- thanks
-- okie
-- got it
-- right
 
-## intent:goodbye
-- bye
-- goodbye
-- good bye
-- stop
-- end
-- farewell
-- Bye bye
-- have a good one
 
 ## intent:greet
 - hey
@@ -47,6 +22,8 @@
 - i want to know few restaurants
 - search for places to eat
 - Food places to eat
+- I want to eat
+- restaurants in [bangalore](location)
 - I am looking for some restaurants in [Delhi](location).
 - I am looking for some restaurants in [Bangalore](location)
 - I’m hungry. Looking out for some good restaurants
@@ -55,32 +32,24 @@
 - show me a [mexican](cuisine) place in [chennai](location)
 - i am looking for an [indian](cuisine) spot called olaolaolaolaolaola
 - search for restaurants
-- anywhere in the [bangalore](location)
+- anywhere in [bangalore](location)
 - I am looking for [south indian](cuisine) food
 - in [Gurgaon](location)
-- [South Indian](cuisine)
-- [North Indian](cuisine)
-- [Italian](cuisine)
-- [Chinese](cuisine:chinese)
-- [chinese](cuisine)
-- [Mexican](cuisine)
-- [American](cuisine)
 - [Lithuania](location)
 - Oh, sorry, in [Italy](location)
 - in [delhi](location)
+- in [mubaim](location)
 - I am looking for some restaurants in [Mumbai](location)
 - I am looking for [Mexican](cuisine)
 - can you book a table in [chennai](location) in a [moderate price](avgcost:from300to700) range with [American](cuisine) food for four people
 - Find restaurants in [chennai](location) in a [low price](avgcost:less300) range with [North Indian](cuisine) food  
-- [central](location) [indian](cuisine) restaurant
+- [Bangalore](location) [indian](cuisine) restaurant
 - please help me to find restaurants in [pune](location)
 - Please find me a restaurant in [bangalore](location)
 - Please find me a [low price](avgcost:less300) range restaurant in [bangalore](location)
 - [mumbai](location)
-- [Chinese](cuisine:chinese)
 - show me restaurants
-- [bangalore](location)
-- [Italian](cuisine)
+- [bangalore](location) 
 - please find me [chinese](cuisine) restaurant in [delhi](location)
 - can you find me a [chinese](cuisine) restaurant
 - [delhi](location)
@@ -91,10 +60,6 @@
 - Cost for two between [Rs. 300 to Rs. 700](avgcost)
 - Cost is below [Rs. 300](avgcost)
 - Price range is below [Rs. 300](avgcost)
-- [less300](avgcost)
-- [from300to700](avgcost)
-- [more700](avgcost)
-- [anyrange](avgcost)
 - Can you suggest some good restaurants in [kolkata](location)
 - I’m hungry. Looking out for some good restaurants
 - I’m hungry. Looking out for some good [chinese](cuisine) restaurants in [chandigarh](location)
@@ -102,16 +67,32 @@
 - Search for restaurants in [Bangalore](location) with price range [less than 300](less300)
 - Want to know about restaurants in [Bangalore](location) with cost for two between [more than Rs.700](avgcost)
 - Restaurants in [Delhi](location) at [any price](avgcost) range
+- Okay. Show me some in [Allahabad](location)
+- [allahabad](location)
+- in [delhi](location) for [North Indian](cuisine) cuisine
 
 ## intent:send_email
-- [yes](should_send_email)
-- [no](should_send_email)
-- [Yes](should_send_email)
-- [No](should_send_email)
+- [send_email](should_send_email)
+- [dont_send_email](should_send_email)
+- [send email](should_send_email:send_email)
+- [Yes, send email](should_send_email:send_email)
+- [dont send email](should_send_email:dont_send_email)
+- [No, dont send email](should_send_email:dont_send_email)
 - my email id: [test@gmail.com](email_id)
 - [test@gmail.com](email_id)
 - email [test@gmail.com](email_id)
 - mail [test@gmail.com](email_id)
+- Please send it to [test@gmail.com](email_id)
+- Send email to [test@gmail.com](email_id)
+- this is my email id  [test@gmail.com](email_id)
+- here it is [test@gmail.com](email_id)
+- send mail to [test@gmail.com](email_id)
+- mail to [test@gmail.com](email_id)
+- email [test@gmail.com](email_id)
+- mail [test@gmail.com](email_id)
+- my email id is [test@gmail.com](email_id)
+- here you go [test@gmail.com](email_id)
+
  
 
 ## synonym:New Delhi
@@ -133,10 +114,12 @@
 
 
 ## synonym:Kolkata
-- Culcatta
+- Calcutta
 
 ## synonym:Puducherry
 - Pondicherry
+- Pondy
+- Pondi
 
 
 ## synonym:Kanpur
@@ -183,6 +166,3 @@
 
 ## regex:greet
 - hey[^\s]*
-
-## regex:pincode
-- [0-9]{6}

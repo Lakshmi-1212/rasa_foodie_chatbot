@@ -1,12 +1,9 @@
 version: "2.0"
 
 intents:
-- affirm
 - restaurant_search
 - send_email
 - greet
-- goodbye
-- stop
 entities:
 - cuisine
 - location
@@ -17,13 +14,13 @@ entities:
 slots: 
   cuisine:
     type: text
-    influence_conversation: true
+    influence_conversation: false
   location:
     type: text
-    influence_conversation: true
+    influence_conversation: false
   avgcost:
     type: text
-    influence_conversation: true
+    influence_conversation: false
   is_valid_city:
     type: bool
     influence_conversation: true
@@ -31,11 +28,14 @@ slots:
     type: bool
     influence_conversation: true
   should_send_email:
-    type: text
+    type: categorical
+    values:
+      - send_email
+      - dont_send_email
     influence_conversation: true
   email_id:
     type: text
-    influence_conversation: true
+    influence_conversation: false
   is_valid_email:
     type: bool
     influence_conversation: true
@@ -74,11 +74,11 @@ responses:
     
   utter_ask_send_email:
   - buttons:
-    - payload: yes 
-      title: yes 
-    - payload: no
-      title: no
-    text: Do you want to send an email with top rated restaurants?
+    - payload: send_email 
+      title: Yes, send e-mail
+    - payload: dont_send_email
+      title: no, do not send e-mail
+    text: Do you want to send an email with the top rated restaurants?
     
   utter_ask_howcanhelp:
   - text: How can I help you?
@@ -86,13 +86,13 @@ responses:
   - text: Please enter the city
   
   utter_we_dont_operate:
-  - text: Sorry, we do not operate in that area yet!
-  - text: Sorry, didn’t find any such location. 
+  - text: Sorry, we do not operate in that area ({location}) yet!
+  - text: Sorry, didn’t find any such location({location}). 
   utter_enter_loc_again:
   - text: Please enter the city again
   
   utter_results_not_found:
-  - text: Sorry, no results found for restaurants in {location} with {cuisine} cuisine and average cost: {avgcost} 
+  - text: Sorry, no results found for restaurants in {location} with {cuisine} cuisine and average cost {avgcost} 
   
   
   utter_enter_email:

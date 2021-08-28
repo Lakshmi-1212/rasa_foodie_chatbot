@@ -134,40 +134,41 @@ def sendmail(receiver_mail_id, location, email_contents):
 	import smtplib
 	from email.mime.multipart import MIMEMultipart
 	from email.mime.text import MIMEText
-	mail_content = email_contents
+	mail_content = email_contents if email_contents is not None else "No restaurants found"
 
-	print(f'4DEBUG: 1. Start - Sending email, size:{len(mail_content)}')
-	# The mail address and password
-	sender_address = 'foodie.restaurant.chatbot@gmail.com'
-	sender_pass = 'foodiechatbot'
-	receiver_address = receiver_mail_id
-	print(f'4DEBUG: 2. message - Sending email, from:{sender_address}, to:{receiver_address}')
-	# Setup the MIME
-	message = MIMEMultipart()
-	message['From'] = sender_address
-	message['To'] = receiver_address
-	message['Subject'] = f'Foodie Chatbot: Top rated restaurants in {location}'  # The subject line
-	# The body and the attachments for the mail
-	message.attach(MIMEText(mail_content, 'plain'))
+	if 0:
+		print(f'4DEBUG: 1. Start - Sending email, size:{len(mail_content)}')
+		# The mail address and password
+		sender_address = 'foodie.restaurant.chatbot@gmail.com'
+		sender_pass = 'foodiechatbot'
+		receiver_address = receiver_mail_id
+		print(f'4DEBUG: 2. message - Sending email, from:{sender_address}, to:{receiver_address}')
+		# Setup the MIME
+		message = MIMEMultipart()
+		message['From'] = sender_address
+		message['To'] = receiver_address
+		message['Subject'] = f'Foodie Chatbot: Top rated restaurants in {location}'  # The subject line
+		# The body and the attachments for the mail
+		message.attach(MIMEText(mail_content, 'plain'))
 
-	print(f'4DEBUG: 3. SMTP - Sending email, sender_address:{sender_address}')
-	# Create SMTP session for sending the mail
-	session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
+		print(f'4DEBUG: 3. SMTP - Sending email, sender_address:{sender_address}')
+		# Create SMTP session for sending the mail
+		session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
 
-	# session = smtplib.SMTP()
-    #
-	# print(f'4DEBUG: 3.5. SMTP connect - Sending email, sender_address:{sender_address}')
-	# session.connect('smtp.gmail.com', 587)
+		# session = smtplib.SMTP()
+		#
+		# print(f'4DEBUG: 3.5. SMTP connect - Sending email, sender_address:{sender_address}')
+		# session.connect('smtp.gmail.com', 587)
 
-	print(f'4DEBUG: 4. starttls - Sending email, sender_address:{sender_address}')
-	session.starttls()  # enable security
+		print(f'4DEBUG: 4. starttls - Sending email, sender_address:{sender_address}')
+		session.starttls()  # enable security
 
-	print(f'4DEBUG: 5. Login - Sending email, sender_address:{sender_address}')
-	session.login(sender_address, sender_pass)  # login with mail_id and password
-	text = message.as_string()
-	print(f'4DEBUG: Sending email, from:{sender_address}, to:{receiver_address}')
-	session.sendmail(sender_address, receiver_address, text)
-	session.quit()
+		print(f'4DEBUG: 5. Login - Sending email, sender_address:{sender_address}')
+		session.login(sender_address, sender_pass)  # login with mail_id and password
+		text = message.as_string()
+		print(f'4DEBUG: Sending email, from:{sender_address}, to:{receiver_address}')
+		session.sendmail(sender_address, receiver_address, text)
+		session.quit()
 	print('Mail Sent')
 
 class ActionSendMail(Action):
@@ -182,6 +183,7 @@ class ActionSendMail(Action):
 
 		print(f"4DEBUG: Before sending mail. To: {receiver_email_id}, city:{location}")
 
+		print(f"4DEBUG: email_contents: {email_contents}")
 		sendmail(receiver_email_id,location, email_contents)
 
 		response = f'Mail sent successfully to {receiver_email_id}'

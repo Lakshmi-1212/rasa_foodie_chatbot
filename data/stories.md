@@ -17,8 +17,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -28,6 +28,9 @@
     - utter_goodbye
     - utter_restart
     - action_chat_restart
+    
+    
+
     
 ## Happy path - first invalid email
 * greet
@@ -48,8 +51,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -86,8 +89,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -123,8 +126,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -178,11 +181,15 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
+    
+    
+     
+    
     
 ## Complete happy path - First time invalid city
 * greet
@@ -209,8 +216,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -246,8 +253,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -290,8 +297,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -333,8 +340,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -382,8 +389,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -407,8 +414,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -441,8 +448,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -472,8 +479,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -515,8 +522,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -541,8 +548,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -573,8 +580,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -611,8 +618,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -648,8 +655,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -695,8 +702,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -722,8 +729,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -756,8 +763,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -789,8 +796,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -836,8 +843,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -863,8 +870,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -896,8 +903,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -936,8 +943,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -975,8 +982,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -1025,8 +1032,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -1052,8 +1059,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -1086,8 +1093,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -1119,8 +1126,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -1166,8 +1173,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -1193,8 +1200,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test@gmail.com"}
     - slot{"email_id": "test@gmail.com"}
@@ -1226,8 +1233,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -1266,8 +1273,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "yes"}
-    - slot{"should_send_email": "yes"}
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
     - utter_enter_email
 * send_email{"email_id": "test123"}
     - slot{"email_id": "test123"}
@@ -1305,8 +1312,8 @@
     - slot{"results_found": true}
     - slot{"email_contents": "email-contents-top rated restaurants"}
     - utter_ask_send_email
-* send_email{"should_send_email": "no"}
-    - slot{"should_send_email": "no"}
+* send_email{"should_send_email": "dont_send_email"}
+    - slot{"should_send_email": "dont_send_email"}
     - utter_goodbye
     - utter_restart
     - action_chat_restart
@@ -1336,3 +1343,70 @@
     - utter_restart
     - action_chat_restart
     
+    
+######
+## Happy Path again
+
+* greet
+    - utter_greet
+* restaurant_search
+    - utter_ask_location
+* restaurant_search{"location": "allahabad"}
+    - slot{"location": "allahabad"}
+    - action_check_loc
+    - slot{"is_valid_city": true}
+    - utter_ask_cuisine
+* restaurant_search{"cuisine": "chinese"}
+    - slot{"cuisine": "chinese"}
+    - utter_ask_budget
+* restaurant_search{"avgcost": "from300to700"}
+    - slot{"avgcost": "from300to700"}
+    - action_search_restaurants
+    - slot{"results_found": true}
+    - slot{"email_contents": "email-contents-top rated restaurants"}
+    - utter_ask_send_email
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
+    - utter_enter_email
+* send_email{"email_id": "test@gmail.com"}
+    - slot{"email_id": "test@gmail.com"}
+    - action_check_email
+    - slot{"is_valid_email": true}
+    - action_send_email
+    - utter_goodbye
+    - utter_restart
+    - action_chat_restart
+    
+## interactive_story_1
+* greet
+    - utter_greet
+* restaurant_search
+    - utter_ask_location
+* restaurant_search{"location": "allahabad"}
+    - slot{"location": "allahabad"}
+    - action_check_loc
+    - slot{"is_valid_city": true}
+    - utter_ask_cuisine
+* restaurant_search{"cuisine": "chinese"}
+    - slot{"cuisine": "chinese"}
+    - utter_ask_budget
+* restaurant_search{"avgcost": "from300to700"}
+    - slot{"avgcost": "from300to700"}
+    - action_search_restaurants
+    - slot{"results_found": true}
+    - slot{"email_contents": "email-contents-top rated restaurants"}
+    - utter_ask_send_email
+* send_email{"should_send_email": "send_email"}
+    - slot{"should_send_email": "send_email"}
+    - utter_enter_email
+* send_email{"email_id": "test@gmail.com"}
+    - slot{"email_id": "test@gmail.com"}
+    - action_check_email
+    - slot{"is_valid_email": true}
+    - action_send_email
+    - slot{"email_id": "test@gmail.com"}
+    - utter_goodbye
+    - utter_restart
+    - action_chat_restart
+
+######
