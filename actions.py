@@ -33,12 +33,17 @@ WeOperate = ['Agra', 'Ahmedabad', 'Allahabad', 'Amritsar', 'Aurangabad',
 
 WeOperate_lower = [city.lower() for city in WeOperate]
 
-
+# Set default cuisine in case it is not picked
 DEFAULT_CUISINE = 'Chinese'
+
+# email regular expressions to validate and extract email id
+# Slack sends email id as 'mailto:test@gmail.com|test@gmail.com'
+EMAIL_REGEX = '[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}'
+EMAIL_MAILTO_REGEX = f'^(mailto:{EMAIL_REGEX}\|)?({EMAIL_REGEX}$)'  # To handle slack email string
 
 def get_average_cost_range(avgCostFor2):
 	min_cost = 0
-	max_cost = 999999 #arbitrary max value
+	max_cost = 50000 #arbitrary max value - found max of 8000 in zomato.csv
 	if avgCostFor2 is not None:
 		if (avgCostFor2 == "less300"):
 			max_cost = 300
@@ -112,12 +117,12 @@ class ActionSearchRestaurants(Action):
 			# Output response - top 5 rated restaurants
 			rest_count = 1
 			response = response + \
-					   f"Top rated {cuisine} restaurants in {loc} \n\n"
+					   f"\nTop rated {cuisine} restaurants in {loc} \n     \n"
 			for index, restaurant in results.head(5).iterrows():
 				response = response + \
 						   f"{rest_count}. '{restaurant['Restaurant Name']}' " \
 						   f"rated {restaurant['Aggregate rating']} with an average cost for two: {restaurant['Average Cost for two']}. " \
-						   f" Address: {restaurant['Address']} \n\n"
+						   f" Address: {restaurant['Address']} \n     \n"
 
 				rest_count += 1
 
@@ -175,6 +180,12 @@ class ActionSendMail(Action):
 	def run(self, dispatcher, tracker, domain):
 		receiver_email_id = tracker.get_slot('email_id')
 
+		# Check if email id is from slack
+		if(receiver_email_id.startswith('mailto')):
+			result = re.search(EMAIL_MAILTO_REGEX, receiver_email_id)
+			receiver_email_id = result.group(2)
+
+
 		location = tracker.get_slot('location')
 		email_contents = tracker.get_slot('email_contents')
 
@@ -186,8 +197,9 @@ class ActionSendMail(Action):
 		return [SlotSet('email_id',receiver_email_id)]
 
 def check_mail(email_id):
-	email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-	return True if(re.search(email_regex,email_id)) else False
+	return True if(re.search(EMAIL_MAILTO_REGEX,email_id)) else False
+
+
 
 class ActionCheckMail(Action):
 	def name(self):
