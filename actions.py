@@ -33,6 +33,9 @@ WeOperate = ['Agra', 'Ahmedabad', 'Allahabad', 'Amritsar', 'Aurangabad',
 
 WeOperate_lower = [city.lower() for city in WeOperate]
 
+
+DEFAULT_CUISINE = 'Chinese'
+
 def get_average_cost_range(avgCostFor2):
 	min_cost = 0
 	max_cost = 999999 #arbitrary max value
@@ -45,7 +48,7 @@ def get_average_cost_range(avgCostFor2):
 		elif (avgCostFor2 == "more700"):
 			min_cost = 700
 
-	print(f'4DEBUG - Min & max for average cost: {min_cost},{max_cost}')
+	print(f'Min & max price range for 2: {min_cost},{max_cost}')
 	return min_cost,max_cost
 
 def check_city_validity(city):
@@ -60,11 +63,8 @@ class ActionCheckLocation(Action):
 		city = tracker.get_slot('location')
 
 		city_validity = check_city_validity(city)
-		print(f'4DEBUG: city validity: City {city} - {city_validity}')
+		print(f'City validity: City {city} - {city_validity}')
 
-		# if not city_validity:
-		# 	response = f"Sorry!! We do not support this region currently!!"
-		# 	dispatcher.utter_message(response)
 		return [SlotSet('is_valid_city',city_validity)]
 
 def RestaurantSearch(city,cuisine,avgCostFor2):
@@ -90,8 +90,13 @@ class ActionSearchRestaurants(Action):
 		loc = tracker.get_slot('location')
 		cuisine = tracker.get_slot('cuisine')
 		avgcost = tracker.get_slot('avgcost')
-		print(f"4DEBUG - Search Restaurants: City: {loc},Cuisine: {cuisine}, Cost for two:{avgcost}")
-		print(f"4DEBUG - is valid city:{loc} - {tracker.get_slot('is_valid_city')}")
+		print(f"Search Restaurants: City: {loc}(valid_city - {tracker.get_slot('is_valid_city')}),"
+			  f"Cuisine: {cuisine}, Cost for two:{avgcost}")
+
+		if cuisine is None:
+			dispatcher.utter_message(f"Cuisine not set. Choosing for default cuisine: {DEFAULT_CUISINE}")
+			cuisine = DEFAULT_CUISINE
+
 
 		results = RestaurantSearch(city=loc,cuisine=cuisine,avgCostFor2=avgcost)
 		response=""
@@ -125,7 +130,6 @@ class ActionSearchRestaurants(Action):
 						   f" Address: {restaurant['Address']} \n\n"
 				rest_count += 1
 
-		print(f"4DEBUG:{response}")
 		dispatcher.utter_message(response)
 		return [SlotSet('results_found',results_found),SlotSet('email_contents',email_contents)]
 
@@ -136,40 +140,33 @@ def sendmail(receiver_mail_id, location, email_contents):
 	from email.mime.text import MIMEText
 	mail_content = email_contents if email_contents is not None else "No restaurants found"
 
-	if 0:
-		print(f'4DEBUG: 1. Start - Sending email, size:{len(mail_content)}')
-		# The mail address and password
-		sender_address = 'foodie.restaurant.chatbot@gmail.com'
-		sender_pass = 'foodiechatbot'
-		receiver_address = receiver_mail_id
-		print(f'4DEBUG: 2. message - Sending email, from:{sender_address}, to:{receiver_address}')
-		# Setup the MIME
-		message = MIMEMultipart()
-		message['From'] = sender_address
-		message['To'] = receiver_address
-		message['Subject'] = f'Foodie Chatbot: Top rated restaurants in {location}'  # The subject line
-		# The body and the attachments for the mail
-		message.attach(MIMEText(mail_content, 'plain'))
+	#if 0:
+	# The mail address and password
+	sender_address = 'foodie.restaurant.chatbot@gmail.com'
+	sender_pass = 'foodiechatbot'
+	receiver_address = receiver_mail_id
 
-		print(f'4DEBUG: 3. SMTP - Sending email, sender_address:{sender_address}')
-		# Create SMTP session for sending the mail
-		session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
 
-		# session = smtplib.SMTP()
-		#
-		# print(f'4DEBUG: 3.5. SMTP connect - Sending email, sender_address:{sender_address}')
-		# session.connect('smtp.gmail.com', 587)
+	print(f'Sending email, from:{sender_address}, to:{receiver_address}')
 
-		print(f'4DEBUG: 4. starttls - Sending email, sender_address:{sender_address}')
-		session.starttls()  # enable security
+	# Setup the MIME
+	message = MIMEMultipart()
+	message['From'] = sender_address
+	message['To'] = receiver_address
+	message['Subject'] = f'Foodie Chatbot: Top rated restaurants in {location}'  # The subject line
+	# The body and the attachments for the mail
+	message.attach(MIMEText(mail_content, 'plain'))
 
-		print(f'4DEBUG: 5. Login - Sending email, sender_address:{sender_address}')
-		session.login(sender_address, sender_pass)  # login with mail_id and password
-		text = message.as_string()
-		print(f'4DEBUG: Sending email, from:{sender_address}, to:{receiver_address}')
-		session.sendmail(sender_address, receiver_address, text)
-		session.quit()
-	print('Mail Sent')
+	# Create SMTP session for sending the mail
+	session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
+
+	session.starttls()  # enable security
+
+	session.login(sender_address, sender_pass)  # login with mail_id and password
+	text = message.as_string()
+	session.sendmail(sender_address, receiver_address, text)
+	session.quit()
+	print('Mail sent successfully!!')
 
 class ActionSendMail(Action):
 	def name(self):
@@ -181,9 +178,6 @@ class ActionSendMail(Action):
 		location = tracker.get_slot('location')
 		email_contents = tracker.get_slot('email_contents')
 
-		print(f"4DEBUG: Before sending mail. To: {receiver_email_id}, city:{location}")
-
-		print(f"4DEBUG: email_contents: {email_contents}")
 		sendmail(receiver_email_id,location, email_contents)
 
 		response = f'Mail sent successfully to {receiver_email_id}'
@@ -203,7 +197,7 @@ class ActionCheckMail(Action):
 		receiver_email_id = tracker.get_slot('email_id')
 
 		valid_email = check_mail(receiver_email_id)
-		print(f'4DEBUG: email validity: email {receiver_email_id} - {valid_email}')
+		print(f'email validity: email {receiver_email_id} - {valid_email}')
 
 		return [SlotSet('is_valid_email',valid_email)]
 

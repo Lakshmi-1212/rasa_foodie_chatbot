@@ -5186,8 +5186,8 @@
     - slot{"cuisine": "American"}
     - slot{"location": "abcd"}
     - utter_ask_budget
-* restaurant_search{"avgcost": "more700"}
-    - slot{"avgcost": "more700"}
+* restaurant_search{"avgcost": "anyrange"}
+    - slot{"avgcost": "anyrange"}
     - action_check_loc
     - slot{"is_valid_city": false} 
     - utter_we_dont_operate
@@ -5968,8 +5968,8 @@
 ## Third time invalid city - stop - send email - user query with cuisine and average cost
 * greet
     - utter_greet
-* restaurant_search{"avgcost": "more700"}
-    - slot{"avgcost": "more700"}
+* restaurant_search{"avgcost": "anyrange"}
+    - slot{"avgcost": "anyrange"}
     - utter_ask_location
 * restaurant_search{"location": "abcd"}
     - slot{"location": "abcd"}
@@ -5995,8 +5995,8 @@
 ## Third time invalid city - stop - first invalid email- user query with cuisine and average cost
 * greet
     - utter_greet
-* restaurant_search{"avgcost": "more700"}
-    - slot{"avgcost": "more700"}
+* restaurant_search{"avgcost": "anyrange"}
+    - slot{"avgcost": "anyrange"}
     - utter_ask_location
 * restaurant_search{"location": "abcd"}
     - slot{"location": "abcd"}

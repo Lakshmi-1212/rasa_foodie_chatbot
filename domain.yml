@@ -60,6 +60,7 @@ responses:
     - payload: North Indian
       title: North Indian
     text: What kind of cuisine would you like?
+    
   utter_ask_budget:
   - buttons:
     - payload: less300 
@@ -115,7 +116,8 @@ responses:
   - text: Okay. Bon Appetit!
   - text: Thanks & bye
   utter_greet:
-  - text: hey there! How may i help you?
+  - text: Hey there! How may i help you?
+  - text: Hi there! How may I help you?
   - text: Hi, how can I help you?
   - text: Hey, how is it going? How may I help you Today?
   

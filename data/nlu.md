@@ -66,14 +66,24 @@
 - Search for [North Indian](cuisine) restaurants in [delhi](location)
 - Search for restaurants in [Bangalore](location) with price range [less than 300](avgcost:less300)
 - Want to know about restaurants in [Bangalore](location) with cost for two between [more than Rs.700](avgcost)
-- Restaurants in [Delhi](location) at [any price](avgcost) range
+- Restaurants in [Delhi](location) at [any price](avgcost:anyrange) range
 - Okay. Show me some in [Allahabad](location)
 - [allahabad](location)
 - in [delhi](location) for [North Indian](cuisine) cuisine
 - find restaurants with [South Indian](cuisine) cuisine
 - Get me restaurants in [low price](avgcost:less300) range
-- Show restaurants in [any price](avgcost:anyprice) range
+- Show restaurants in [any price](avgcost:anyrange) range
 - Show some [American](cuisine) cuisine food joints
+- [less300](avgcost)
+- [from300to700](avgcost)
+- [more700](avgcost)
+- [anyrange](avgcost)
+- [Chinese](cuisine)
+- [Mexican](cuisine)
+- [American](cuisine)
+- [Italian](cuisine)
+- [South Indian](cuisine)
+- [North Indian](cuisine)
 
 ## intent:send_email
 - [send_email](should_send_email)
