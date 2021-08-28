@@ -64,12 +64,16 @@
 - I’m hungry. Looking out for some good restaurants
 - I’m hungry. Looking out for some good [chinese](cuisine) restaurants in [chandigarh](location)
 - Search for [North Indian](cuisine) restaurants in [delhi](location)
-- Search for restaurants in [Bangalore](location) with price range [less than 300](less300)
+- Search for restaurants in [Bangalore](location) with price range [less than 300](avgcost:less300)
 - Want to know about restaurants in [Bangalore](location) with cost for two between [more than Rs.700](avgcost)
 - Restaurants in [Delhi](location) at [any price](avgcost) range
 - Okay. Show me some in [Allahabad](location)
 - [allahabad](location)
 - in [delhi](location) for [North Indian](cuisine) cuisine
+- find restaurants with [South Indian](cuisine) cuisine
+- Get me restaurants in [low price](avgcost:less300) range
+- Show restaurants in [any price](avgcost:anyprice) range
+- Show some [American](cuisine) cuisine food joints
 
 ## intent:send_email
 - [send_email](should_send_email)
@@ -80,6 +84,9 @@
 - [No, dont send email](should_send_email:dont_send_email)
 - my email id: [test@gmail.com](email_id)
 - [test@gmail.com](email_id)
+- [test@gmail](email_id)
+- [test.com](email_id)
+- [abcd](email_id)
 - email [test@gmail.com](email_id)
 - mail [test@gmail.com](email_id)
 - Please send it to [test@gmail.com](email_id)
@@ -97,9 +104,12 @@
 
 ## synonym:New Delhi
 - Delhi
+- Dilli
 
 ## synonym:bangalore
 - Bengaluru
+- Bengalur
+- Bangalor
 - Blore
 
 ## synonym:Mysore
@@ -166,3 +176,4 @@
 
 ## regex:greet
 - hey[^\s]*
+- hi[^\s]*

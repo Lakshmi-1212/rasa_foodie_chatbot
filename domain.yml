@@ -90,6 +90,9 @@ responses:
   - text: Sorry, didn’t find any such location({location}). 
   utter_enter_loc_again:
   - text: Please enter the city again
+  utter_max_invalid_city:
+  - text: Max no. of tries for city reached! Please start again!
+  - text: Max no. of tries for city reached!!
   
   utter_results_not_found:
   - text: Sorry, no results found for restaurants in {location} with {cuisine} cuisine and average cost {avgcost} 
