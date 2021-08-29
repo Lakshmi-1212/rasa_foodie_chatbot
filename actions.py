@@ -7,6 +7,10 @@ from rasa_sdk.events import SlotSet, Restarted
 import pandas as pd
 import json
 import re
+import smtplib
+import threading
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 ZomatoData = pd.read_csv('zomato.csv')
 ZomatoData = ZomatoData.drop_duplicates().reset_index(drop=True)
@@ -38,7 +42,7 @@ DEFAULT_CUISINE = 'Chinese'
 
 # email regular expressions to validate and extract email id
 # Slack sends email id as 'mailto:test@gmail.com|test@gmail.com'
-EMAIL_REGEX = '[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}'
+EMAIL_REGEX = '[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+'
 EMAIL_MAILTO_REGEX = f'^(mailto:{EMAIL_REGEX}\|)?({EMAIL_REGEX}$)'  # To handle slack email string
 
 def get_average_cost_range(avgCostFor2):
@@ -139,13 +143,26 @@ class ActionSearchRestaurants(Action):
 		return [SlotSet('results_found',results_found),SlotSet('email_contents',email_contents)]
 
 
+
+
+
+def create_send_email(sender_address, sender_password, receiver_address, text):
+	print(f"Thread: Sending email to:{receiver_address}")
+	# Create SMTP session for sending the mail
+	session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
+	session.starttls()  # enable security
+	session.login(sender_address, sender_password)  # login with mail_id and password
+	session.sendmail(sender_address, receiver_address, text)
+	session.quit()
+
+	print(f"Thread: email sent to {receiver_address}")
+
 def sendmail(receiver_mail_id, location, email_contents):
 	import smtplib
 	from email.mime.multipart import MIMEMultipart
 	from email.mime.text import MIMEText
 	mail_content = email_contents if email_contents is not None else "No restaurants found"
 
-	#if 0:
 	# The mail address and password
 	sender_address = 'foodie.restaurant.chatbot@gmail.com'
 	sender_pass = 'foodiechatbot'
@@ -161,17 +178,21 @@ def sendmail(receiver_mail_id, location, email_contents):
 	message['Subject'] = f'Foodie Chatbot: Top rated restaurants in {location}'  # The subject line
 	# The body and the attachments for the mail
 	message.attach(MIMEText(mail_content, 'plain'))
-
-	# Create SMTP session for sending the mail
-	session = smtplib.SMTP('smtp.gmail.com', 587)  # use gmail with port
-
-	session.starttls()  # enable security
-
-	session.login(sender_address, sender_pass)  # login with mail_id and password
 	text = message.as_string()
-	session.sendmail(sender_address, receiver_address, text)
-	session.quit()
-	print('Mail sent successfully!!')
+
+	# NOTE: rasa times out after 10 seconds (default setting in rasa package) if it does not receive a response for an action
+	# Due to this, rasa was getting hung while sending emails
+	# Two options to resolve this issue:
+	# 1. Change the default timeout either in the package (console.py) or invoke rasa shell with parameter --response-timeout
+	# 2. Make the process of sending email asynchronous.
+	# We have implemented option 2 here and used threads to send out email & rasa does not timeout due to server delays
+	t = threading.Thread(target=create_send_email, args=[sender_address, sender_pass, receiver_address, text])
+	t.daemon = True
+	t.start()
+
+	# create_send_email(sender_address, sender_pass, receiver_address, text)
+
+	print(f'Mail sent to:{receiver_address}')
 
 class ActionSendMail(Action):
 	def name(self):
@@ -189,9 +210,11 @@ class ActionSendMail(Action):
 		location = tracker.get_slot('location')
 		email_contents = tracker.get_slot('email_contents')
 
+		#dispatcher.utter_message(f'Sending e-mail to:{receiver_email_id	}')
+
 		sendmail(receiver_email_id,location, email_contents)
 
-		response = f'Mail sent successfully to {receiver_email_id}'
+		response = f'Mail sent to {receiver_email_id}'
 		dispatcher.utter_message(response)
 
 		return [SlotSet('email_id',receiver_email_id)]
@@ -209,7 +232,7 @@ class ActionCheckMail(Action):
 		receiver_email_id = tracker.get_slot('email_id')
 
 		valid_email = check_mail(receiver_email_id)
-		print(f'email validity: email {receiver_email_id} - {valid_email}')
+		print(f'Checking email validity: email {receiver_email_id} - {valid_email}')
 
 		return [SlotSet('is_valid_email',valid_email)]
 

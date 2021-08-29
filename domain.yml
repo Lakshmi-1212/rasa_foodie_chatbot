@@ -4,6 +4,7 @@ intents:
 - restaurant_search
 - send_email
 - greet
+
 entities:
 - cuisine
 - location
